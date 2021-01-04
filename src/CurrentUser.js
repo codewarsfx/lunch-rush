@@ -5,6 +5,14 @@ import './CurrentUser.css';
 const CurrentUser = ({ user }) => {
   return (
     <div className="CurrentUser">
+        <img src={user.photoURL} className="CurrentUser--photo"/>
+      <div className="CurrentUser--identification">
+      <h3>{user.displayName}</h3>
+      <p>{user.email}</p>
+      <button onClick={()=>auth.signOut()}>
+         Sign out
+      </button>
+      </div>
     </div>
   );
 };
