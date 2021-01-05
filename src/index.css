@@ -31,6 +31,7 @@ button, input[type="submit"], .button {
   outline: none;
   padding: 0.5rem 1rem;
   transition: 0.2s all;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 480px) {

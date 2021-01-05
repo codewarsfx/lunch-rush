@@ -10,8 +10,10 @@ class Application extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser:null
+      currentUser:null,
+      restaurants:null,
     };
+    this.restaurantRef =database.ref('/restaurants');
   }
 
   componentDidMount(){
@@ -21,19 +23,30 @@ class Application extends Component {
         currentUser:user
       });
 
+      this.restaurantRef.on('value',(snapshot)=>{
+        this.setState({
+            restaurants:snapshot.val()
+        });
+
+      });
     });
 
   }
 
   render() {
-    const {currentUser} =this.state;
+    const {currentUser,restaurants} =this.state;
 
     return (
       <div className="Application">
         <header className="Application--header">
           <h1>Lunch Rush</h1>
         </header>
-         { currentUser ? <CurrentUser user= {currentUser}/>  : <SignIn/>}
+         { currentUser ? (
+           <div>
+          <NewRestaurant/>
+          {restaurants && <Restaurants restaurants={restaurants} user={currentUser}/>}
+         <CurrentUser user= {currentUser}/> 
+            </div> ): <SignIn/>}
       </div>
     );
   }
